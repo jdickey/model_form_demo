@@ -12,6 +12,7 @@ describe 'ThingsController::IndexResponder' do
   end # describe 'initialisation'
 
   describe 'has a #call method that' do
+    let(:count) { 20 }
     let(:dummy_controller) do
       Class.new do
         attr_reader :flash
@@ -29,16 +30,25 @@ describe 'ThingsController::IndexResponder' do
         expect(error.message).must_equal 'no block given (yield)'
       end
 
-      it 'yields an array-like enumerable to the block' do
-        obj.call do |yielded|
-          expect(yielded).must_respond_to :to_ary
+      describe 'yields a value to the block that' do
+        before do
+          obj.call { |yielded| @yielded = yielded }
         end
-      end
+
+        it 'is array-like' do
+          expect(@yielded).must_respond_to :to_ary
+        end
+
+        it 'has the expected number of entries' do
+          expect(@yielded.count).must_equal count
+        end
+      end # describe 'yields a value to the block that'
     end # describe 'can be called without parameters but'
 
+    # Assumes database is seeded with 20 dummy records.
     it "assigns to the controller's success flash message" do
       obj.call { |_| }
-      expected = 'There are currently no things in the system.'
+      expected = "There are currently #{count} things in the system."
       expect(dummy_controller.flash[:success]).must_equal expected
     end
   end # describe 'has a #call method that'
