@@ -1,0 +1,6 @@
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/TrailingBlankLines:
+  Enabled: false

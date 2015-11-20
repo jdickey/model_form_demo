@@ -1,0 +1,23 @@
+db_default: &db_default
+  db:
+    host: localhost
+    port: 5432
+    username: postgres
+
+development:
+  <<: *db_default
+  # setting:                development_value
+  # # The following will become 'secure_setting'
+  # _secure_secure_setting: secure_development_value
+
+test:
+  <<: *db_default
+  # setting:                test_value
+  # # The following will become 'secure_setting'
+  # _secure_secure_setting: secure_test_value
+
+production:
+  <<: *db_default
+  # setting:                production_value
+  # # The following will become 'secure_setting'
+  # _secure_secure_setting: secure_production_value
