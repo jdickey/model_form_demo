@@ -1,5 +1,7 @@
 
-# ThingsController is our  one and only demo controller.
+require_relative 'index_responder/flash_message_text'
+
+# ThingsController is our one and only demo controller.
 class ThingsController < ApplicationController
   # Would encapsulate any business logic involved in index action: selection,
   # authorisation, and so on.
@@ -20,8 +22,12 @@ class ThingsController < ApplicationController
 
     attr_reader :controller, :things
 
+    def flash_message
+      FlashMessageText.new(count: things.count).to_s
+    end
+
     def handle_success
-      controller.flash[:success] = 'Welcome to the app!'
+      controller.flash[:success] = flash_message
       self
     end
   end # class ThingsController::IndexResponder
