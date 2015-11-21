@@ -46,6 +46,11 @@ describe 'Views::Things::Index' do
         expect(table.nodes.first.name).must_equal 'tr'
       end
 
+      it 'has the correct number of child elements (rows)' do
+        expect(table.nodes.count).must_equal things.count + 1
+        table.nodes.each { |node| expect(node.name).must_equal 'tr' }
+      end
+
       describe 'has in its first row' do
         let(:first_row) { table.nodes.first }
 
@@ -80,6 +85,40 @@ describe 'Views::Things::Index' do
           end
         end # describe 'a header for a column titled'
       end # describe 'has in its first row'
+
+      describe 'has a detail row for each thing which includes its' do
+        after do
+          thing_values = things.map { |thing| thing.send @thing_sym }
+          rendered_values = table.nodes[1..-1].map do |row|
+            row.nodes[@node_index].text.send(@node_sym)
+          end
+          expect(thing_values).must_equal rendered_values
+        end
+
+        it 'ID' do
+          @thing_sym = :id
+          @node_index = 0
+          @node_sym = :to_i
+        end
+
+        it 'name' do
+          @thing_sym = :name
+          @node_index = 1
+          @node_sym = :to_s
+        end
+
+        it 'initial quantity' do
+          @thing_sym = :initial_quantity
+          @node_index = 2
+          @node_sym = :to_i
+        end
+
+        it 'description' do
+          @thing_sym = :description
+          @node_index = 3
+          @node_sym = :to_s
+        end
+      end # describe 'has a detail row for each thing which includes its'
     end # describe 'a table as the last child element that'
   end # describe 'properly renders'
 end # describe 'Views::Things::Index'

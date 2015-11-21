@@ -42,6 +42,10 @@ describe 'ThingsController::IndexResponder' do
         it 'has the expected number of entries' do
           expect(@yielded.count).must_equal count
         end
+
+        it 'must be sorted by ID number' do
+          expect(@yielded).must_equal @yielded.sort_by(&:id)
+        end
       end # describe 'yields a value to the block that'
     end # describe 'can be called without parameters but'
 
