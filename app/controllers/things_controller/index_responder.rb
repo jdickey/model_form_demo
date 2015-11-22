@@ -35,7 +35,7 @@ class ThingsController < ApplicationController
     end
 
     def handle_success
-      controller.flash[:success] = flash_message
+      controller.flash[:info] = flash_message
       self
     end
   end # class ThingsController::IndexResponder
