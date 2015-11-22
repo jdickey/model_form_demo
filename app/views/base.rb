@@ -11,6 +11,12 @@ class Views::Base < Fortitude::Widget
   enforce_id_uniqueness true
   # (Per default,) emit properly closed void elements (e.g., <br/>, not <br>).
   close_void_tags true
-  # Backwards compatibility; switch to methods soonest.
-  use_instance_variables_for_assigns true
+  # It turns out that I was misunderstanding this; it doesn't affect how `needs`
+  # variables get *passed to* a widget, but rather how a widget accesses those.
+  # Enable this setting, and a widget can use *either* instance variables copied
+  # from the controller (e.g., `@things`) *or* the moral equivalent of
+  # `attr_reader` methods (`things`). Disable it, either by setting to `false`,
+  # by commenting it out, or by removing the line entirely, and *only* reader
+  # methods work.
+  use_instance_variables_for_assigns false
 end
