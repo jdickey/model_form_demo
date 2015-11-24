@@ -2,30 +2,30 @@
 require 'test_helper'
 
 feature 'Landing Page' do
+  let(:page_title) { 'Model Form Demo' }
   let(:thing_count) { 20 }
 
   before do
     visit root_path
   end
 
-  it 'does not display the boilerplate Rails advert' do
-    expect(page.title).must_equal 'Model Form Demo'
-  end
-
-  it 'displays the correct page title' do
-    expect(page.title).must_equal 'Model Form Demo'
-  end
-
-  it 'displays the correct page-content header' do
+  it 'has the correct content' do
+    # it displays the correct page title
+    expect(page.title).must_equal page_title
+    # it displays the correct page-content header
     expect(page).must_have_selector 'h1', text: 'Index All the Things'
-  end
-
-  it 'must have a header row as the first row of the table' do
+    # it must have a header row as the first row of the table
     expect(page).must_have_selector 'table > tr:first-child > th:first-child',
                                     text: 'Id'
+    # it displays the correct number of table rows
+    expect(page).must_have_selector 'tr', count: thing_count + 1
+    # it displays an 'Add New Thing' button
+    expect(page).must_have_selector 'button.btn', text: 'Add New Thing'
   end
 
-  it 'displays the correct number of table rows' do
-    expect(page).must_have_selector 'tr', count: thing_count + 1
+  it 'performs the expected action when clicking the "Add New Thing" button' do
+    click_button 'Add New Thing'
+    # no change yet
+    expect(page.title).must_equal page_title
   end
 end # feature 'Landing Page'

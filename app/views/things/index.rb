@@ -3,16 +3,20 @@
 class Views::Things::Index < Views::Base
   needs :things, flash: {}
 
-  include SemanticLogger::Loggable
-
   def content
-    title_content
-    flash_content
-    page_header
-    table_widget { detail_lines }
+    non_detail_widgets
+    detail_table
   end
 
   private
+
+  def add_thing_button
+    widget AddThingButton
+  end
+
+  def detail_table
+    table_widget { detail_lines }
+  end
 
   def each_flash
     flash_as_hash.each { |type, message| yield type, message }
@@ -26,6 +30,11 @@ class Views::Things::Index < Views::Base
     each_flash do |type, message|
       widget FlashAlert, type: type, message: message
     end
+  end
+
+  def non_detail_widgets
+    messages = [:title_content, :flash_content, :page_header, :add_thing_button]
+    messages.each { |message| send message }
   end
 
   def title_content
