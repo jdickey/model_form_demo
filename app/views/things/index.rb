@@ -1,7 +1,4 @@
 
-require_relative 'index/flash_alert'
-# require_relative 'index/table_widget'
-
 # Class encapsulating all page-specific view code for `things/index`.
 class Views::Things::Index < Views::Base
   needs :things, flash: {}
