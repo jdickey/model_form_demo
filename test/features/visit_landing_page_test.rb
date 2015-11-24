@@ -22,7 +22,7 @@ feature 'Landing Page' do
 
   it 'must have a header row as the first row of the table' do
     expect(page).must_have_selector 'table > tr:first-child > th:first-child',
-                                    text: 'ID'
+                                    text: 'Id'
   end
 
   it 'displays the correct number of table rows' do
