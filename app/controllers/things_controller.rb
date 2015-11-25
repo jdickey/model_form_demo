@@ -11,7 +11,8 @@ class ThingsController < ApplicationController
   end
 
   def new
-    # new_responder { |thing| @thing = thing }
+    new_responder { |thing| @thing = thing }
+    logger.debug 'Returning from #new', @thing
     self
   end
 
@@ -22,6 +23,6 @@ class ThingsController < ApplicationController
   end
 
   def new_responder
-    # NewResponder.new(self).call(params) { |thing| yield thing }
+    NewResponder.new(self).call(params) { |thing| yield thing }
   end
 end
