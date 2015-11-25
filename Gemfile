@@ -41,6 +41,9 @@ gem 'chamber', '~> 2.8'
 # Use Fortitude for views as code
 gem 'fortitude', '~> 0.9'
 
+# SemanticLogger: a *much* more capable (and compatible) logger.
+gem 'rails_semantic_logger', '~> 1.7'
+
 # Use Thin as our Rack server
 gem 'thin', '1.6.4'
 
