@@ -10,9 +10,18 @@ class ThingsController < ApplicationController
     self
   end
 
+  def new
+    # new_responder { |thing| @thing = thing }
+    self
+  end
+
   private
 
   def index_responder
     IndexResponder.new(self).call(params) { |things| yield things }
+  end
+
+  def new_responder
+    # NewResponder.new(self).call(params) { |thing| yield thing }
   end
 end
