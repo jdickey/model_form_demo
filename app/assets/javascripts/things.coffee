@@ -3,8 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
-  console.trace('Entering document.ready in things.coffee')
+  # console.trace('Entering document.ready in things.coffee')
   onClick = (_event) -> window.location.href  += '/things/new'
   button = $('button.btn.btn-primary')
   button.click(onClick) if button.length
-  console.trace('Leaving document.ready in things.coffee')
+  # console.trace('Leaving document.ready in things.coffee')
