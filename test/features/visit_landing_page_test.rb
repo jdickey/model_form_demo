@@ -19,19 +19,4 @@ feature 'Landing Page' do
     # it displays an 'Add New Thing' button
     expect(page).must_have_selector 'button.btn', text: 'Add New Thing'
   end
-
-  it 'renders the correct markup when clicking the "Add New Thing" button' do
-    # Why don't we just stick the next two lines in a `before` block? Because
-    # Poltergeist (or `capybara_webkit` or `selenium`) are *bloody slow* when
-    # compared to the default `rack_test` driver. Only enable a JS-aware driver
-    # when your test is actually dependent on JavaScript or something compiled
-    # to it.
-    Capybara.current_driver = :poltergeist
-    visit root_path
-    page.find('button').click
-    # Our current 'new' template doesn't specify any content, so...
-    expected = '<html><head></head><body></body></html>'
-    expect(page.body).must_equal expected
-    Capybara.use_default_driver
-  end
 end # feature 'Landing Page'

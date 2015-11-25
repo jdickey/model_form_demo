@@ -3,18 +3,12 @@ require 'test_helper'
 
 feature 'Create New Thing' do
   before do
-    Capybara.current_driver = :poltergeist
-    visit root_path
-    page.find('button').click
+    visit new_thing_path
   end
 
-  after do
-    Capybara.use_default_driver
-  end
-
-  it 'renders the correct markup when clicking the "Add New Thing" button' do
-    # Our current 'new' template doesn't specify any content, so...
-    expected = '<html><head></head><body></body></html>'
-    expect(page.body).must_equal expected
-  end
+  describe 'has the correct markup for the entry form, including' do
+    it 'the correct title' do
+      expect(page.title).must_equal 'Add New Thing to List of All Things'
+    end
+  end # describe 'has the correct markup for the entry form, including'
 end # feature 'Landing Page'
