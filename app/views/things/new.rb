@@ -7,8 +7,9 @@ class Views::Things::New < Views::Base
   include SemanticLogger::Loggable
 
   def content
-    logger.debug 'Entering #content', thing: thing, flash: flash
     page_title_content
+    form_for(:thing) do |the_form|
+    end
   end
 
   private

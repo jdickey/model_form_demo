@@ -19,7 +19,19 @@ describe 'Views::Things::New' do
       end
     end
   end
-  let(:actual) { obj.to_html }
+  let(:helpers_mock) do
+    Class.new do
+      # This method smells of :reek:UtilityFunction for API compatibility.
+      def form_for(record, options = {})
+        Rails.logger.debug 'In #form_for', record: record, options: options
+      end
+    end.new
+  end
+  let(:actual) do
+    rc = Fortitude::RenderingContext.new(helpers_object: helpers_mock)
+    obj.to_html rc
+  end
+  # let(:actual) { obj.to_html }
 
   it 'calls the #content_for helper correctly when rendered' do
     _ = actual # nothing happens until widget is rendered, so...
