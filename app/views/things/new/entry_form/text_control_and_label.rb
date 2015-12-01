@@ -23,11 +23,11 @@ class Views::Things::New < Views::Base
       end
 
       def text_control
-        form_obj.label field_id, class: 'control-label'
+        controls_div { field_widget }
       end
 
       def text_control_label
-        controls_div { field_widget }
+        form_obj.label field_id, class: 'control-label'
       end
     end # class Views::Things::New::EntryForm::TextControlAndLabel
   end # class Views::Things::New::EntryForm
