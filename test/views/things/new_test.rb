@@ -22,8 +22,9 @@ describe 'Views::Things::New' do
   let(:helpers_mock) do
     Class.new do
       # This method smells of :reek:UtilityFunction for API compatibility.
-      def form_for(record, options = {})
-        Rails.logger.debug 'In #form_for', record: record, options: options
+      def form_for(record, options = {}, &block)
+        Rails.logger.debug 'In #form_for', record: record, options: options,
+                                           block_source: block.source
       end
     end.new
   end

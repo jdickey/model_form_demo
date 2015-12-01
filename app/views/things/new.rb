@@ -8,8 +8,7 @@ class Views::Things::New < Views::Base
 
   def content
     page_title_content
-    form_for(:thing) do |the_form|
-    end
+    widget EntryForm, thing: thing
   end
 
   private
