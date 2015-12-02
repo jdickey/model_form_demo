@@ -8,12 +8,20 @@ class Views::Things::New < Views::Base
 
   def content
     page_title_content
-    widget EntryForm, thing: thing
+    container { row { widget EntryForm, thing: thing } }
   end
 
   private
 
+  def container
+    div(class: 'container') { yield }
+  end
+
   def page_title_content
     content_for :title, title_content
+  end
+
+  def row
+    div(class: 'row') { yield }
   end
 end # class Views::Things::New

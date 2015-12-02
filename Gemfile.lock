@@ -291,7 +291,7 @@ GEM
     semantic_logger (2.18.0)
       sync_attr (~> 2.0)
       thread_safe (~> 0.1)
-    sequel (4.28.0)
+    sequel (4.29.0)
     sequel-rails (0.9.11)
       actionpack (>= 3.2.0)
       activemodel
