@@ -1,5 +1,12 @@
 source 'https://rubygems.org'
 
+# Security enhancement, killing 'github:' MITM attacks.
+# See https://sikac.hu/secure-your-github-sources-in-your-gemfile-f99784015200
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com:#{repo_name}.git"
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets
@@ -46,9 +53,6 @@ gem 'rails_semantic_logger', '~> 1.7'
 
 # Use Thin as our Rack server
 gem 'thin', '1.6.4'
-
-# Updated "#distance_of_time_in_words" separate from Rails
-gem 'dotiw', '~> 3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

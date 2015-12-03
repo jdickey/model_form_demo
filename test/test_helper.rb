@@ -37,7 +37,8 @@ if ENV['RAILS_ENV'] == 'test'
       sc_formatters.unshift(Coveralls::SimpleCov::Formatter)
     end
     sc_formatters.unshift(CodeClimate::TestReporter::Formatter) if uses_cc
-    formatter SimpleCov::Formatter::MultiFormatter[*sc_formatters]
+    self.formatters = sc_formatters
+    # formatter SimpleCov::Formatter::MultiFormatter[*sc_formatters]
     Coveralls.wear!('rails') if uses_cova
   end
   if uses_cc
