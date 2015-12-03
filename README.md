@@ -1,5 +1,8 @@
 ## `model_form_demo`
 
+[![Code Climate](https://codeclimate.com/github/jdickey/model_form_demo/badges/gpa.svg)](https://codeclimate.com/github/jdickey/model_form_demo)
+[ ![Codeship Status for jdickey/model_form_demo](https://codeship.com/projects/25ac3b60-7bda-0133-3687-5e23d6b78f76/status)](https://codeship.com/projects/119736)
+
 Simple demonstration of
 
 1. A model-based form that
