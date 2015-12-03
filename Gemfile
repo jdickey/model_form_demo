@@ -1,5 +1,12 @@
 source 'https://rubygems.org'
 
+# Security enhancement, killing 'github:' MITM attacks.
+# See https://sikac.hu/secure-your-github-sources-in-your-gemfile-f99784015200
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com:#{repo_name}.git"
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets
