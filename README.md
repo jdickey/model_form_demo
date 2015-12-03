@@ -2,6 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/jdickey/model_form_demo/badges/gpa.svg)](https://codeclimate.com/github/jdickey/model_form_demo)
 [ ![Codeship Status for jdickey/model_form_demo](https://codeship.com/projects/25ac3b60-7bda-0133-3687-5e23d6b78f76/status)](https://codeship.com/projects/119736)
+[![Coveralls Coverage Status](https://coveralls.io/repos/jdickey/model_form_demo/badge.svg&service=github)](https://coveralls.io/github/jdickey/model_form_demo)
 
 Simple demonstration of
 
