@@ -4,7 +4,7 @@
 require File.expand_path('../config/application', __FILE__)
 
 if %w(development test).include? Rails.env
-  require "rake/testtask"
+  require 'rake/testtask'
 
   require 'rake/tasklib'
   require 'flay_task'
