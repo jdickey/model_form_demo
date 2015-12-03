@@ -45,11 +45,12 @@ module FormObjects
     end
 
     def validate
-      # rubocop:disable Style/RaiseArgs, Style/SignalException
-      raise ValidationError.new(invalid_attributes: attributes,
-                                errors_found: errors) unless valid?
-      # rubocop:enable  Style/RaiseArgs, Style/SignalException
+      fail validation_error unless valid?
       self
+    end
+
+    def validation_error
+      ValidationError.new invalid_attributes: attributes, errors_found: errors
     end
   end # class FormObjects::CreateThing
 end
