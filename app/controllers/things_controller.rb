@@ -3,26 +3,23 @@ require_relative 'things_controller/index_responder'
 
 # ThingsController is our  one and only demo controller.
 class ThingsController < ApplicationController
-  include SemanticLogger::Loggable
+  # include SemanticLogger::Loggable
 
   def index
-    index_responder { |things| @things = things }
-    self
+    respond_with(IndexResponder) { |things| @things = things }
   end
 
   def new
-    new_responder { |thing| @thing = thing }
-    logger.debug 'Returning from #new', @thing
-    self
+    respond_with(NewResponder) { |thing| @thing = thing }
+  end
+
+  def create
+    respond_with(CreateResponder) { |thing| @thing = thing }
   end
 
   private
 
-  def index_responder
-    IndexResponder.new(self).call(params) { |things| yield things }
-  end
-
-  def new_responder
-    NewResponder.new(self).call(params) { |thing| yield thing }
+  def respond_with(responder, &_block)
+    responder.new(self).call(params) { |product| yield product }
   end
 end

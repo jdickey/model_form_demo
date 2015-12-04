@@ -1,6 +1,7 @@
 
 require 'virtus'
 
+require_relative 'create_thing/uniqueness'
 require_relative 'create_thing/validation_error'
 
 module FormObjects
@@ -20,33 +21,38 @@ module FormObjects
       only_integer: true
     }
     validates :description, presence: true, allow_blank: false
-    validate :unique_thing_name?
+    validate :unique?
 
     def new?
       !Thing.find(name: name)
     end
 
     def save
-      validate
+      validate_before_save
       new_record.save
       self
     end
 
     private
 
+    def add_uniquness_failure_error
+      errors.add :name, 'has already been added. Please enter a new one.'
+    end
+
     def new_record
       Thing.new attributes
     end
 
-    def unique_thing_name?
-      existing = Thing.find(name: name)
-      return unless existing
-      errors.add :name, 'has already been added. Please enter a new one.'
+    # Since we don't keep track of record IDs in this class, we have to wing it
+    # using attributes.
+    def unique?
+      return true if Uniqueness.new(attributes).unique?
+      add_uniquness_failure_error
+      false
     end
 
-    def validate
-      fail validation_error unless valid?
-      self
+    def validate_before_save
+      fail validation_error unless valid? && unique?
     end
 
     def validation_error

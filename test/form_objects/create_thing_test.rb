@@ -74,8 +74,10 @@ describe 'FormObjects::CreateThing' do
         @messages = ["Name can't be blank"]
       end
 
-      it 'a duplicate' do
-        described_class.new(params).save
+      it 'a near-duplicate' do
+        obj2 = described_class.new params
+        obj2.initial_quantity *= 2 # no longer the same as the original values
+        obj2.save
         @messages = ['Name has already been added. Please enter a new one.']
       end
     end # describe 'the :name field is'
