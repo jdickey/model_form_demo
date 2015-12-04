@@ -39,6 +39,10 @@ module FormObjects
       errors.add :name, 'has already been added. Please enter a new one.'
     end
 
+    def can_save?
+      valid? && unique?
+    end
+
     def new_record
       Thing.new attributes
     end
@@ -52,7 +56,7 @@ module FormObjects
     end
 
     def validate_before_save
-      fail validation_error unless valid? && unique?
+      fail validation_error unless can_save?
     end
 
     def validation_error

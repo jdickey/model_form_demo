@@ -13,7 +13,7 @@ class ThingsController < ApplicationController
     end
 
     def call(params, &_block)
-      init_thing params
+      create_and_save_thing params
       yield @thing
       handle_result
     end
@@ -22,8 +22,13 @@ class ThingsController < ApplicationController
 
     attr_reader :controller, :thing
 
-    def init_thing(params)
-      @thing = FormObjects::CreateThing.new params
+    def create_thing(params)
+      @thing = FormObjects::CreateThing.new params['thing']
+      self
+    end
+
+    def create_and_save_thing(params)
+      create_thing params
       @thing.save if @thing.valid?
       self
     end

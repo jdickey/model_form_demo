@@ -55,10 +55,10 @@ describe 'ThingsController' do
     end
 
     describe 'with valid field values' do
-      let(:params) { FactoryGirl.attributes_for :thing }
+      let(:params) { { thing: FactoryGirl.attributes_for(:thing) } }
 
       it 'saves the record' do
-        expect(Thing.find name: params[:name]).wont_be :nil?
+        expect(Thing.find name: params[:thing][:name]).wont_be :nil?
       end
 
       it 'redirects to the root URL' do
@@ -66,13 +66,13 @@ describe 'ThingsController' do
       end
 
       it 'has the correct flash message' do
-        expected = ['Added your new "', '" Thing!'].join params[:name]
+        expected = ['Added your new "', '" Thing!'].join params[:thing][:name]
         expect(flash[:success]).must_equal expected
       end
 
       it 'assigns the saved form object to the :thing assignment variable' do
         expect(assigns[:thing]).must_be_instance_of FormObjects::CreateThing
-        expect(assigns[:thing].attributes).must_equal params
+        expect(assigns[:thing].attributes).must_equal params[:thing]
       end
     end # describe 'with valid field values'
 

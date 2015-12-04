@@ -15,9 +15,11 @@ class Views::Things::New < Views::Base
     private
 
     def outer_form(&_block)
-      form_for(:thing, html: { class: 'form-vertical' }) do |builder|
-        yield builder
-      end
+      form_for(:thing, outer_form_params) { |builder| yield builder }
+    end
+
+    def outer_form_params
+      { url: '/things', html: { class: 'form-vertical' } }
     end
   end # class Views::Things::New::EntryForm
 end # class Views::Things::New
