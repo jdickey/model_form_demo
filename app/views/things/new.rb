@@ -7,6 +7,7 @@ class Views::Things::New < Views::Base
   include SemanticLogger::Loggable
 
   def content
+    widget Views::Things::Index::Flashes, flashes: flash
     page_title_content
     container { form_row }
   end
