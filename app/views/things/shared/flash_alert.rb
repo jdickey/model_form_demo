@@ -1,7 +1,7 @@
 
 module Views
   module Things
-    class Index < Views::Base
+    module Shared
       # Widget to display Rails flash messages neatly; should be shared widget.
       class FlashAlert < Views::Base
         needs :message, :type
@@ -55,7 +55,7 @@ module Views
           alert_classes = "alert alert-dismissible #{alert_class}".rstrip
           { class: alert_classes, role: 'alert' }
         end
-      end # class Views::Things::Index::FlashAlert
-    end # class Views::Things::Index
+      end # class Views::Things::Shared::FlashAlert
+    end
   end
 end

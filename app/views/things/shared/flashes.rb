@@ -3,8 +3,7 @@ require_relative 'flash_alert'
 
 module Views
   module Things
-    # Class encapsulating all page-specific view code for `things/index`.
-    class Index < Views::Base
+    module Shared
       # Shared layout-level widget to display all Rails flash messages neatly.
       class Flashes < Views::Base
         needs :flashes
@@ -14,7 +13,7 @@ module Views
             widget FlashAlert, message: message, type: type
           end
         end
-      end # class Views::Things::Index::Flashes
+      end # class Views::Things::Shared::Flashes
     end
   end
 end

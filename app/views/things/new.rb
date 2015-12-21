@@ -5,9 +5,10 @@ class Views::Things::New < Views::Base
                 title_content: 'Add New Thing to List of All Things'
 
   include SemanticLogger::Loggable
+  include Views::Things::Shared
 
   def content
-    widget Views::Things::Index::Flashes, flashes: flash
+    flash_messages
     page_title_content
     container { form_row }
   end
@@ -16,6 +17,10 @@ class Views::Things::New < Views::Base
 
   def container
     div(class: 'container') { yield }
+  end
+
+  def flash_messages
+    widget Flashes, flashes: flash
   end
 
   def form_row

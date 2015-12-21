@@ -5,7 +5,7 @@ require 'ox'
 require 'support/be_named'
 require 'support/have_css_classes'
 
-require File.expand_path 'app/views/things/index/flashes', Rails.root
+require File.expand_path 'app/views/things/shared/flashes', Rails.root
 
 # This method smells of :reek:UtilityFunction (because it is one)
 def alert_class(type)
@@ -67,8 +67,8 @@ def describe_flash_entries_for(case_env, outer_description_in, data_in)
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-describe 'Views::Things::Index::Flashes' do
-  let(:described_class) { Views::Things::Index::Flashes }
+describe 'Views::Things::Shared::Flashes' do
+  let(:described_class) { Views::Things::Shared::Flashes }
   let(:actual) { obj.to_html.strip }
   let(:flash_obj) { ActionDispatch::Flash::FlashHash.new }
   let(:obj) { described_class.new flashes: flash_obj }

@@ -1,7 +1,11 @@
 
+require File.expand_path 'app/views/things/shared/flashes', Rails.root
+
 # Class encapsulating all page-specific view code for `things/index`.
 class Views::Things::Index < Views::Base
   needs :things, flash: {}
+
+  include Views::Things::Shared
 
   def content
     widget Flashes, flashes: flash

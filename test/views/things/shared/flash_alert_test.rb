@@ -1,10 +1,10 @@
 
 require 'test_helper'
 
-require File.expand_path 'app/views/things/index/flash_alert', Rails.root
+require File.expand_path 'app/views/things/shared/flash_alert', Rails.root
 
-describe 'Views::Things::Index::FlashAlert' do
-  let(:described_class) { Views::Things::Index::FlashAlert }
+describe 'Views::Things::Shared::FlashAlert' do
+  let(:described_class) { Views::Things::Shared::FlashAlert }
   let(:actual) { obj.to_html.strip }
   let(:message_text) { 'A Message' }
   let(:nodes) { Ox.parse actual }
