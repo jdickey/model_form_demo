@@ -4,7 +4,9 @@
   <% @title_text = content_for?(:title) ? yield(:title) : 'Generic Title?' %>
   <title><%= @title_text %></title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag  '//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
