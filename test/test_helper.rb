@@ -65,6 +65,12 @@ require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(
   color: true, detailed_skip: true, fast_fail: true)]
 
+require 'minitest/tagz'
+tags = ENV['TAGS'].split(',') if ENV['TAGS']
+tags ||= []
+tags << 'focus'
+Minitest::Tagz.choose_tags(*tags, run_all_if_no_match: true)
+
 # Included in generated `test_helper.rb` by Rails' app generator.
 # # Base class for all test cases
 # class ActiveSupport::TestCase

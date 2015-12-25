@@ -22,9 +22,8 @@ describe 'Views::Things::Index::TableWidget' do
     end
 
     describe 'renders an outermost :table element that' do
-      it 'has no CSS styling' do
-        expect(nodes[:class]).must_be :nil?
-        expect(nodes[:style]).must_be :nil?
+      it 'has Bootstrap table CSS styling' do
+        expect(nodes[:class].split).must_equal %w(table table-hover)
       end
 
       it 'contains a :tr element as its first child, containing :th tags' do

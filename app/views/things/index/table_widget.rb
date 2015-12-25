@@ -11,13 +11,17 @@ class Views::Things::Index < Views::Base
     needs :things, detail_fields: Thing.new.columns
 
     def content
-      table do
+      containing_table do
         header_row_widget
         render_detail_lines
       end
     end
 
     private
+
+    def containing_table
+      table(class: 'table table-hover') { yield }
+    end
 
     def header_row_widget
       widget HeaderRow, fields: detail_fields

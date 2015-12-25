@@ -31,18 +31,205 @@ describe 'Views::Things::Index' do
     let(:dummy) { ['<div>', '</div>'].join actual }
     let(:nodes) { Ox.parse(dummy).nodes }
 
+    it 'at least three child elements' do
+      expect(nodes.count).must_be :>=, 3
+    end
+
     it 'the page header as the first child element' do
       expect(nodes.first.name).must_equal 'h1'
       expect(nodes.first.text).must_equal 'Index All the Things'
     end
+
+    it 'a :div element as the second-last child element' do
+      expect(nodes[-2].name).must_equal 'div'
+    end
+
+    describe 'a :div element as the second-last child element, which' do
+      let(:row_div) { nodes[-2] }
+
+      it 'a Bootstrap .row :div' do
+        expect(row_div[:class]).must_equal 'row'
+      end
+
+      describe 'a Bootstrap .row :div with' do
+        it 'one child element' do
+          expect(row_div.nodes.count).must_equal 1
+        end
+
+        describe 'one child element that' do
+          let(:col_div) { row_div.nodes.first }
+
+          it 'is a :div element itself' do
+            expect(col_div.name).must_equal 'div'
+          end
+
+          it 'has Bootstrap column-spec styling' do
+            expect(col_div[:class]).must_match(/col\-..\-12/)
+          end
+
+          it 'has one child element' do
+            expect(col_div.nodes.count).must_equal 1
+          end
+
+          describe 'has one child element that' do
+            let(:button) { col_div.nodes.first }
+
+            it 'is a :button element' do
+              expect(button.name).must_equal 'button'
+            end
+
+            it 'has the "button" :type attribute' do
+              expect(button[:type]).must_equal 'button'
+            end
+
+            it 'has the "btn" and "btn-primary" Bootstrap button styles' do
+              expect(button[:class].split).must_equal %w(btn btn-primary)
+            end
+
+            it 'contains the correct text' do
+              expect(button.text).must_equal 'Add New Thing'
+            end
+          end # describe 'has one child element that'
+        end # describe 'one child element that'
+      end # describe 'a Bootstrap .row :div with'
+    end # describe 'a :div element as the second-last child element, which'
+
+    it 'a :div element as the last child element' do
+      expect(nodes.last.name).must_equal 'div'
+    end
+
+    describe 'a :div element as the last child element, which' do
+      let(:row_div) { nodes.last }
+
+      it 'contains a single child element' do
+        expect(row_div.nodes.count).must_equal 1
+      end
+
+      it 'has Bootstrap .row CSS styling' do
+        expect(row_div[:class]).must_equal 'row'
+      end
+
+      describe 'contains a single child element that' do
+        let(:col_div) { row_div.nodes.first }
+
+        it 'contains a single child element' do
+          expect(col_div.nodes.count).must_equal 1
+        end
+
+        it 'has Bootstrap column-spec styling' do
+          expect(col_div[:class]).must_match(/col\-..\-12/)
+        end
+
+        describe 'contains a single child element that' do
+          let(:table) { col_div.nodes.first }
+
+          it 'is a :table element' do
+            expect(table.name).must_equal 'table'
+          end
+
+          it 'has the "table" and "table-hover" Bootstrap CSS styles' do
+            expect(table[:class].split).must_equal %w(table table-hover)
+          end
+
+          describe 'is a :table element that' do
+            it 'has the correct number of child nodes' do
+              expect(table.nodes.count).must_equal things.count + 1
+            end
+
+            it 'has a :tr element as each child node' do
+              others = table.nodes.reject { |node| node.name == 'tr' }
+              expect(others).must_be :empty?
+            end
+
+            describe 'has in its first row' do
+              let(:first_row) { table.nodes.first }
+
+              it 'an element with four child nodes' do
+                expect(first_row.nodes.count).must_equal 4
+              end
+
+              it 'a :th element as each child node' do
+                others = first_row.nodes.reject { |node| node.name == 'th' }
+                expect(others).must_be :empty?
+              end
+
+              describe 'a header for a column titled' do
+                after do
+                  expect(@node.text).must_equal @expected
+                end
+
+                it '"ID" as the first column' do
+                  @node = first_row.nodes.first
+                  @expected = 'Id'
+                end
+
+                it '"Name" as the second column' do
+                  @node = first_row.nodes[1]
+                  @expected = 'Name'
+                end
+
+                it '"Initial Quantity" as the third column' do
+                  @node = first_row.nodes[2]
+                  @expected = 'Initial Quantity'
+                end
+
+                it '"Description" as the last column' do
+                  @node = first_row.nodes.last
+                  @expected = 'Description'
+                end
+              end # describe 'a header for a column titled'
+            end # describe 'has in its first row'
+
+            describe 'has a detail row for each thing which includes its' do
+              after do
+                thing_values = things.map { |thing| thing.send @thing_sym }
+                rendered_values = table.nodes[1..-1].map do |row|
+                  row.nodes[@node_index].text.send(@node_sym)
+                end
+                expect(thing_values).must_equal rendered_values
+              end
+
+              it 'ID' do
+                @thing_sym = :id
+                @node_index = 0
+                @node_sym = :to_i
+              end
+
+              it 'name' do
+                @thing_sym = :name
+                @node_index = 1
+                @node_sym = :to_s
+              end
+
+              it 'initial quantity' do
+                @thing_sym = :initial_quantity
+                @node_index = 2
+                @node_sym = :to_i
+              end
+
+              it 'description' do
+                @thing_sym = :description
+                @node_index = 3
+                @node_sym = :to_s
+              end
+            end # describe 'has a detail row for each thing which includes its'
+          end # describe 'is a :table element that'
+        end # describe 'contains a single child element that'
+      end # describe 'contains a single child element that'
+    end # describe 'a :div element as the last child element, which'
 
     describe 'flash content' do
       let(:found) { nodes.select { |node| node.name == 'div' } }
       let(:info_text) { 'I have some information for you. That is all.' }
 
       describe 'when no flash messages are defined' do
-        it 'has no top-level :div element' do
-          expect(found).must_be :empty?
+        it 'has two top-level :div elements' do
+          expect(found.count).must_equal 2
+        end
+
+        it 'has no :div elements whose CSS classes include "alert"' do
+          alerts = found.select { |node| node[:class].split.include? 'alert' }
+          expect(alerts).must_be :empty?
         end
       end # describe 'when no flash messages are defined'
 
@@ -51,8 +238,8 @@ describe 'Views::Things::Index' do
           flash[:notice] = info_text
         end
 
-        it 'a top-level :div element' do
-          expect(found).wont_be :empty?
+        it 'a top-level :div element in addition to the usual two' do
+          expect(found.count).must_equal 3
         end
 
         describe 'a top-level :div element whose last child node has' do
@@ -78,8 +265,8 @@ describe 'Views::Things::Index' do
           flash[:success] = success_text
         end
 
-        it 'produce two top-level :div elements' do
-          expect(found.count).must_equal 2
+        it 'produce four top-level :div elements' do
+          expect(found.count).must_equal 4
         end
 
         it 'alert :div elements in the expected order' do
@@ -88,91 +275,5 @@ describe 'Views::Things::Index' do
         end
       end # describe 'when two flash messages are defined, they'
     end # describe 'flash content'
-
-    it 'a table as the last child element' do
-      expect(nodes.last.name).must_equal 'table'
-    end
-
-    describe 'a table as the last child element that' do
-      let(:table) { nodes.last }
-
-      it 'has as its first child element a :tr element' do
-        expect(table.nodes.first.name).must_equal 'tr'
-      end
-
-      it 'has the correct number of child elements (rows)' do
-        expect(table.nodes.count).must_equal things.count + 1
-        table.nodes.each { |node| expect(node.name).must_equal 'tr' }
-      end
-
-      describe 'has in its first row' do
-        let(:first_row) { table.nodes.first }
-
-        it 'four :th child elements' do
-          expect(first_row.nodes.count).must_equal 4
-          first_row.nodes.each { |node| expect(node.name).must_equal 'th' }
-        end
-
-        describe 'a header for a column titled' do
-          after do
-            expect(@node.text).must_equal @expected
-          end
-
-          it '"ID" as the first column' do
-            @node = first_row.nodes.first
-            @expected = 'Id'
-          end
-
-          it '"Name" as the second column' do
-            @node = first_row.nodes[1]
-            @expected = 'Name'
-          end
-
-          it '"Initial Quantity" as the third column' do
-            @node = first_row.nodes[2]
-            @expected = 'Initial Quantity'
-          end
-
-          it '"Description" as the last column' do
-            @node = first_row.nodes.last
-            @expected = 'Description'
-          end
-        end # describe 'a header for a column titled'
-      end # describe 'has in its first row'
-
-      describe 'has a detail row for each thing which includes its' do
-        after do
-          thing_values = things.map { |thing| thing.send @thing_sym }
-          rendered_values = table.nodes[1..-1].map do |row|
-            row.nodes[@node_index].text.send(@node_sym)
-          end
-          expect(thing_values).must_equal rendered_values
-        end
-
-        it 'ID' do
-          @thing_sym = :id
-          @node_index = 0
-          @node_sym = :to_i
-        end
-
-        it 'name' do
-          @thing_sym = :name
-          @node_index = 1
-          @node_sym = :to_s
-        end
-
-        it 'initial quantity' do
-          @thing_sym = :initial_quantity
-          @node_index = 2
-          @node_sym = :to_i
-        end
-
-        it 'description' do
-          @thing_sym = :description
-          @node_index = 3
-          @node_sym = :to_s
-        end
-      end # describe 'has a detail row for each thing which includes its'
-    end # describe 'a table as the last child element that'
   end # describe 'properly renders'
 end # describe 'Views::Things::Index'

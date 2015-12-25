@@ -5,10 +5,8 @@ require File.expand_path 'app/views/things/shared/flashes', Rails.root
 class Views::Things::Index < Views::Base
   needs :things, flash: {}
 
-  include Views::Things::Shared
-
   def content
-    widget Flashes, flashes: flash
+    widget Views::Things::Shared::Flashes, flashes: flash
     non_detail_widgets
     detail_table
   end
@@ -16,16 +14,28 @@ class Views::Things::Index < Views::Base
   private
 
   def add_thing_button
-    widget AddThingButton
+    row_with_single_column { widget AddThingButton }
   end
 
   def detail_table
-    table_widget { detail_lines }
+    row_with_single_column { table_widget { detail_lines } }
   end
 
   def non_detail_widgets
     messages = [:title_content, :page_header, :add_thing_button]
     messages.each { |message| send message }
+  end
+
+  def row_with_single_column
+    styled_row { single_column { yield } }
+  end
+
+  def single_column
+    div(class: 'col-md-12') { yield }
+  end
+
+  def styled_row
+    div(class: 'row') { yield }
   end
 
   def title_content
