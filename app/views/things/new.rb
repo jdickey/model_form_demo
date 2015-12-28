@@ -9,6 +9,7 @@ class Views::Things::New < Views::Base
   def content
     flash_messages
     page_title_content
+    page_header_content
     form_widget
   end
 
@@ -21,6 +22,10 @@ class Views::Things::New < Views::Base
 
   def form_widget
     widget EntryForm, thing: thing
+  end
+
+  def page_header_content
+    h1 { text title_content }
   end
 
   def page_title_content
