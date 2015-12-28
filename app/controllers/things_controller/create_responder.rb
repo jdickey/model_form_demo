@@ -5,7 +5,7 @@ require 'create_thing'
 class ThingsController < ApplicationController
   # Encapsulates all logic involved in create action, successful or otherwise.
   class CreateResponder
-    # include SemanticLogger::Loggable
+    include SemanticLogger::Loggable
 
     def initialize(controller)
       @controller = controller
@@ -30,6 +30,8 @@ class ThingsController < ApplicationController
     def create_and_save_thing(params)
       create_thing params
       @thing.save if @thing.valid?
+      # Rails.logger.debug 'Error messages for @thing',
+      #                    @thing.errors.full_messages
       self
     end
 
@@ -40,6 +42,7 @@ class ThingsController < ApplicationController
 
     def handle_failure
       # Controller's @thing should already be set by this point per yield
+      # Rails.logger.debug 'Flashes in responder', flash: controller.flash.to_h
       controller.render 'new'
       self
     end

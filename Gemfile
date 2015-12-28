@@ -76,6 +76,7 @@ group :test do
   gem 'minitest-matchers', '~> 1.4'
   gem 'minitest-reporters', '~> 1.0'
   gem 'minitest-fail-fast', '~> 0.1'
+  gem 'minitest-tagz', '~> 1.2'
   gem 'selenium-webdriver', '~> 2.47'
   # gem 'capybara-webkit', '~> 1.6'
   gem 'poltergeist', '~> 1.6'

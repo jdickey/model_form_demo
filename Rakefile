@@ -44,7 +44,7 @@ if %w(development test).include? Rails.env
 
   FlogTask.new do |t|
     t.verbose = true
-    t.threshold = 300 # default is 200
+    t.threshold = 400 # default is 200
     t.instance_variable_set :@methods_only, true
     t.dirs = %w(app lib) # Look, Ma! No tests! (Run for `test` periodically.)
   end
