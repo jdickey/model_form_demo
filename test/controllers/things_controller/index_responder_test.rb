@@ -53,7 +53,7 @@ describe 'ThingsController::IndexResponder' do
     it "assigns to the controller's success flash message" do
       obj.call { |_| }
       expected = "There are currently #{count} things in the system."
-      expect(dummy_controller.flash[:info]).must_equal expected
+      expect(dummy_controller.flash[:notice]).must_equal expected
     end
   end # describe 'has a #call method that'
 end # describe 'ThingsController::IndexResponder'

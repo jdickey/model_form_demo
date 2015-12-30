@@ -9,7 +9,7 @@ class ThingsController < ApplicationController
     # Methods neither depending on nor affecting instance state
     module Internals
       def self.all_the_things
-        Thing.all.sort_by(&:id)
+        Thing.for_index
       end
     end
     private_constant :Internals
@@ -35,7 +35,7 @@ class ThingsController < ApplicationController
     end
 
     def handle_success
-      controller.flash[:info] = flash_message
+      controller.flash[:notice] = flash_message
       self
     end
   end # class ThingsController::IndexResponder
