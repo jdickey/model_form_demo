@@ -102,13 +102,11 @@ describe 'ThingsController' do
           expect(thing).wont_be :valid?
         end
 
-        # The assumption here is that the controller doesn't set any flash
-        # messages because it commanded the re-rendering of the new-user page.
-        # When that page is fully functional, it will retrieve the validation
-        # error messages from the User object handed to it and display those
-        # appropriately.
-        it 'sets no flash messages' do
-          expect(flash).must_be_empty
+        # Now that validation is properly hooked in, it complains bitterly.
+        it 'sets correct encoded error-flash message for failed validation' do
+          expected = ["Name can't be blank", 'Initial quantity is not a number',
+                      "Description can't be blank"]
+          expect(flash[:error]).must_equal JSON.dump(expected)
         end
       end # describe 'assigns to the :thing variable'
     end # describe 'with invalid field values'

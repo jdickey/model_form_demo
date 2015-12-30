@@ -35,6 +35,12 @@ class ThingsController < ApplicationController
       self
     end
 
+    def encode_errors_to_flash
+      error_str = Views::Things::Shared::MessageEncoder.encode @thing.errors
+      controller.flash[:error] = error_str
+      self
+    end
+
     def handle_result
       return handle_success if @thing.valid?
       handle_failure
@@ -42,7 +48,7 @@ class ThingsController < ApplicationController
 
     def handle_failure
       # Controller's @thing should already be set by this point per yield
-      # Rails.logger.debug 'Flashes in responder', flash: controller.flash.to_h
+      encode_errors_to_flash
       controller.render 'new'
       self
     end
