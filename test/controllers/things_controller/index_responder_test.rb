@@ -7,7 +7,7 @@ describe 'ThingsController::IndexResponder' do
   describe 'initialisation' do
     it 'requires one parameter' do
       error = expect { described_class.new }.must_raise ArgumentError
-      expect(error.message).must_equal 'wrong number of arguments (0 for 1)'
+      expect(error.message).must_match(/wrong number of arguments \(.*0.* 1\)/)
     end
   end # describe 'initialisation'
 

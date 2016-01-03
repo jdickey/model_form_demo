@@ -90,7 +90,9 @@ group :test, :quality do
   gem 'codeclimate-test-reporter', '~> 0.4', require: false
   gem 'flay', '~> 2.6', require: false
   gem 'flog', '>= 4.3.2', require: false
-  gem 'reek', '~> 3.0', require: false
+  # NOTE: *DO NOT* update Reek to 3.8 pending fix for 'unused private method'
+  #       being flagged in subclasses.
+  gem 'reek', '3.7.1', require: false
   gem 'rubocop', '~> 0.33', require: false
   gem 'simplecov', '~> 0.10', require: false
 
