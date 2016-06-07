@@ -56,7 +56,7 @@ module FormObjects
     end
 
     def validate_before_save
-      fail validation_error unless can_save?
+      raise validation_error unless can_save?
     end
 
     def validation_error

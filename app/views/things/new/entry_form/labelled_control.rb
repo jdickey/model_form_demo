@@ -27,7 +27,7 @@ class Views::Things::New < Views::Base
                   "  builder.text_field field_id, type: 'number',\n" \
                   "                               class: control_css_class\n" \
                   "end\n\n"
-        fail NotImplementedError, message
+        raise NotImplementedError, message
       end
     end # class Views::Things::New::EntryForm::LabelledControl
   end # class Views::Things::New::EntryForm

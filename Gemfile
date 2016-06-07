@@ -54,13 +54,13 @@ gem 'rails_semantic_logger', '~> 1.7'
 # Use Thin as our Rack server
 gem 'thin', '1.6.4'
 
+# Access an IRB console on exception pages or by using <%= console %> in views
+gem 'web-console', '~> 2.0', group: :development
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   # NOTE: 'pry-byebug' 3.2 depends on 'byebug' being '~> 5.0' :-(
   # gem 'byebug', '~> 6.0'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
 
   gem 'dotenv-rails', '~> 2.0'
   gem 'pry-rails', '~> 0.3'

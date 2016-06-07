@@ -4,3 +4,30 @@ Style/ClassAndModuleChildren:
 
 Style/TrailingBlankLines:
   Enabled: false
+
+# New to 0.39.x
+
+Style/NestedParenthesizedCalls:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.3
+
+# FIXME: This probably should get fixed in code. Blech.
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# New to 0.40.x; may be FIXME
+
+Style/MultilineArrayBraceLayout:
+  Enabled: false
+
+Style/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Style/UnneededInterpolation:
+  Enabled: false

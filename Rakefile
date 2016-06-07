@@ -7,6 +7,7 @@ if %w(development test).include? Rails.env
   require 'rake/testtask'
 
   require 'rake/tasklib'
+  require 'flay'
   require 'flay_task'
   require 'flog'
   require 'flog_task'

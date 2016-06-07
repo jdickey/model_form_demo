@@ -2,7 +2,7 @@ db_default: &db_default
   db:
     host: localhost
     port: 5432
-    username: postgres
+    username: <%= ENV['USER'] %>
 
 development:
   <<: *db_default
