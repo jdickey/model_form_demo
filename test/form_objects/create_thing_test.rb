@@ -101,7 +101,7 @@ describe 'FormObjects::CreateThing' do
       end
 
       it 'negative' do
-        params[:initial_quantity] = (-74)
+        params[:initial_quantity] = -74
         @messages = ['Initial quantity must be greater than or equal to 1']
       end
     end # describe 'the :initial_quantity field is'

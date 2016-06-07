@@ -63,7 +63,8 @@ require 'capybara/poltergeist'
 require 'minitest/autorun' # harmless if already required
 require 'minitest/reporters'
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(
-  color: true, detailed_skip: true, fast_fail: true)]
+  color: true, detailed_skip: true, fast_fail: true
+)]
 
 require 'minitest/tagz'
 tags = ENV['TAGS'].split(',') if ENV['TAGS']

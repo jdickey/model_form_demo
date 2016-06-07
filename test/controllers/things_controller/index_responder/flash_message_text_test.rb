@@ -21,7 +21,7 @@ describe 'ThingsController::IndexResponder::FlashMessageText' do
       end
 
       it 'produces the correct message when treated as a string' do
-        expect("#{obj}").must_equal expected
+        expect(obj.to_s).must_equal expected
       end
     end # describe 'zero'
 
@@ -34,7 +34,7 @@ describe 'ThingsController::IndexResponder::FlashMessageText' do
       end
 
       it 'produces the correct message when treated as a string' do
-        expect("#{obj}").must_equal expected
+        expect(obj.to_s).must_equal expected
       end
     end # describe 'one'
 
@@ -47,7 +47,7 @@ describe 'ThingsController::IndexResponder::FlashMessageText' do
       end
 
       it 'produces the correct message when treated as a string' do
-        expect("#{obj}").must_equal expected
+        expect(obj.to_s).must_equal expected
       end
     end # describe 'more than one'
   end # describe 'when the specified count is'

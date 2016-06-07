@@ -13,21 +13,7 @@ Style/NestedParenthesizedCalls:
 AllCops:
   TargetRubyVersion: 2.3
 
-# FIXME: This probably should get fixed in code. Blech.
+# FIXME: This probably should get added to all 48 files. Blech.
 
 Style/FrozenStringLiteralComment:
-  Enabled: false
-
-# New to 0.40.x; may be FIXME
-
-Style/MultilineArrayBraceLayout:
-  Enabled: false
-
-Style/MultilineMethodCallBraceLayout:
-  Enabled: false
-
-Style/RedundantParentheses:
-  Enabled: false
-
-Style/UnneededInterpolation:
   Enabled: false

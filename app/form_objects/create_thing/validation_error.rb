@@ -13,8 +13,9 @@ module FormObjects
       end
 
       def message
-        ['Validation of Thing attributes failed. Invalid attributes:',
-         "#{invalid_attributes}, errors found: #{errors_found.full_messages}"
+        [
+          'Validation of Thing attributes failed. Invalid attributes:',
+          "#{invalid_attributes}, errors found: #{errors_found.full_messages}"
         ].join ' '
       end
 
