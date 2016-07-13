@@ -33,6 +33,14 @@ WORKDIR $APP_HOME
 # ADD Gemfile.lock $APP_HOME/
 # shouldn't this pick up the `Gemfile` and `Gemfile.lock`?
 ADD . $APP_HOME
+
+# Courtesy of http://blog.grio.com/2015/11/bundler-bulkheads-for-rails-on-docker.html
+RUN useradd -ms /bin/bash mfd
+RUN chown -R mfd:mfd $APP_HOME
+USER mfd
+ENV GEM_HOME /home/mfd/.gems
+# end privilege de-escalation; Bundler should be happy now.
+
 RUN gem install bundler brakeman && bundle install
 # These break when run inside the Dockerfile; run them from the host
 # RUN bundle install
